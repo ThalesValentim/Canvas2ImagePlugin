@@ -1,17 +1,16 @@
-Canvas2ImagePlugin
+Canvas2ImagePlugin - Revised version by Thales Valentim (Original by devgeeks)
 ============
 
 This plugin allows you to save the contents of an HTML canvas tag to the iOS Photo Library, or Android Gallery from your app.
 
-See an example project using it here: [https://github.com/devgeeks/Canvas2ImageDemo](https://github.com/devgeeks/Canvas2ImageDemo)
 
 Installation
 ------------
 
 ### For Cordova 3.0.x:
 
-1. To add this plugin just type: `cordova plugin add https://github.com/devgeeks/Canvas2ImagePlugin.git` or `phonegap local plugin add https://github.com/devgeeks/Canvas2ImagePlugin.git`
-2. To remove this plugin type: `cordova plugin remove org.devgeeks.Canvas2ImagePlugin` or `phonegap local plugin remove org.devgeeks.Canvas2ImagePlugin`
+1. To add this plugin just type: `cordova plugin add https://github.com/thalesvalentim/Canvas2ImagePlugin.git` or `phonegap local plugin add https://github.com/thalesvalentim/Canvas2ImagePlugin.git`
+2. To remove this plugin type: `cordova plugin remove org.thalesvalentim.Canvas2ImagePlugin` or `phonegap local plugin remove org.thalesvalentim.Canvas2ImagePlugin`
 
 ### NOTE: For older versions of Cordova (You will probably have to use tag 0.2.0)
 
