@@ -3,7 +3,7 @@
     id="org.thalesvalentim.Canvas2ImagePlugin"
     version="0.1">
 
-    <name>Canvas 2 Image</name>
+    <name>Canvas2Image iOS Public Location</name>
 
     <engines>
         <engine name="cordova" version=">=3.0.0" />

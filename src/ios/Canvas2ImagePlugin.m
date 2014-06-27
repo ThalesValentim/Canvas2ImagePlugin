@@ -25,7 +25,21 @@
 	NSData* imageData = [NSData dataFromBase64String:[command.arguments objectAtIndex:0]];
 	
 	UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];	
-	UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+	
+	NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+ 
+	// If you go to the folder below, you will find those pictures
+	NSLog(@"%@",docDir);
+	
+	NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+	NSString *jpegFilePath = [NSString stringWithFormat:@"%@/%@.jpeg",docDir, date];
+	NSData *data2 = [NSData dataWithData:UIImageJPEGRepresentation(image, 1.0f)];//1.0f = 100% quality
+	[data2 writeToFile:jpegFilePath atomically:YES];
+	
+	CDVPluginResult* result = [CDVPluginResult resultWithStatus: CDVCommandStatus_OK messageAsString:@"%@", jpegFilePath];
+	[self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:result]];
+	
+	//UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 	
 }
 
