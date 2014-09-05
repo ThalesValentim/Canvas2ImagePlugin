@@ -6,18 +6,15 @@
 //  Copyright (c) 2012 Tommy-Carlos Williams. All rights reserved.
 //	MIT Licensed
 //
+//  IOS Public Location by ThalesValentim (thalesvalentim.com.br) @2014
 
 #import "Canvas2ImagePlugin.h"
 #import <Cordova/CDV.h>
+#include <stdlib.h>
 
 @implementation Canvas2ImagePlugin
 @synthesize callbackId;
 
-//-(CDVPlugin*) initWithWebView:(UIWebView*)theWebView
-//{
-//    self = (Canvas2ImagePlugin*)[super initWithWebView:theWebView];
-//    return self;
-//}
 
 -(void) saveImage:(UIImage *)image withFileName:(NSString *)imageName ofType:(NSString *)extension inDirectory:(NSString *)directoryPath {
     if ([[extension lowercaseString] isEqualToString:@"png"]) {
@@ -32,13 +29,15 @@
 
 - (void)saveImageDataToLibrary:(CDVInvokedUrlCommand*)command
 {
+    int myRand = arc4random() % 10000000;
     self.callbackId = command.callbackId;
     NSData* imageData = [NSData dataFromBase64String:[command.arguments objectAtIndex:0]];
     
     UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
 
     NSString * path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *ImageName = @"ImageFile";
+    NSString *temp = @"ImageFile-";
+    NSString *ImageName = [temp stringByAppendingFormat:@"%d",myRand];
     [self saveImage:image withFileName:ImageName ofType:@"png" inDirectory:path];
     NSString *tileDirectory = [[NSBundle mainBundle] resourcePath];
     NSString *documentFolderPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
@@ -47,32 +46,7 @@
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     CDVPluginResult* result = [CDVPluginResult resultWithStatus: CDVCommandStatus_OK messageAsString:[NSString stringWithFormat:@"%@/%@.png", documentFolderPath, ImageName]];
     [self.webView stringByEvaluatingJavaScriptFromString:[result toSuccessCallbackString: self.callbackId]];
-    //[self.webView stringByEvaluatingJavaScriptFromString:[result]];
-    
-}
 
-- (void)saveImageDataToPhotos:(CDVInvokedUrlCommand*)command
-{
-    self.callbackId = command.callbackId;
-	NSData* imageData = [NSData dataFromBase64String:[command.arguments objectAtIndex:0]];
-	
-	UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];	
-	
-	NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
- 
-	// If you go to the folder below, you will find those pictures
-	NSLog(@"%@",docDir);
-	
-	NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeStamp];
-	NSString *jpegFilePath = [NSString stringWithFormat:@"%@/%@.jpeg",docDir, date];
-	NSData *data2 = [NSData dataWithData:UIImageJPEGRepresentation(image, 1.0f)];//1.0f = 100% quality
-	[data2 writeToFile:jpegFilePath atomically:YES];
-	
-	CDVPluginResult* result = [CDVPluginResult resultWithStatus: CDVCommandStatus_OK messageAsString:@"%@", jpegFilePath];
-	[self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:result]];
-	
-	//UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-	
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
