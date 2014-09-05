@@ -6,7 +6,8 @@
 //  Copyright (c) 2012 Tommy-Carlos Williams. All rights reserved.
 //	MIT Licensed
 //
-//  IOS Public Location by ThalesValentim (thalesvalentim.com.br) @2014
+//  IOS Public Location by ThalesValentim (thalesvalentim.com.br) @2014 
+// Minor fix thanks to wbt11a
 
 #import "Canvas2ImagePlugin.h"
 #import <Cordova/CDV.h>
