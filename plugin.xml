@@ -1,7 +1,7 @@
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="org.thalesvalentim.Canvas2ImagePlugin"
-    version="0.3">
+    version="2.0">
 
     <name>Canvas2Image iOS Public Location</name>
 
